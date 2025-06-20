@@ -1,4 +1,4 @@
-rasa==3.6.10
-rasa-sdk==3.6.1
+rasa==3.1.7
+rasa-sdk==3.1.4
 pandas
 openpyxl
