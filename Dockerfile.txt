@@ -1,17 +1,24 @@
-# Use the official Rasa image
-FROM rasa/rasa:3.6.10
+# Use an official Python image
+FROM python:3.10
 
 # Set working directory
 WORKDIR /app
 
-# Copy all project files into the container
-COPY . /app
+# Copy all project files
+COPY . .
 
-# Install additional Python dependencies (if needed)
-# RUN pip install -r requirements.txt
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    git \
+    && rm -rf /var/lib/apt/lists/*
 
-# Expose port for Rasa server
+# Install Rasa
+RUN pip install --upgrade pip
+RUN pip install rasa==3.6.10
+
+# Expose port 5005 for Rasa
 EXPOSE 5005
 
-# Run Rasa server
-CMD ["run", "--enable-api", "--cors", "*", "--port", "5005", "--debug"]
+# Start Rasa server
+CMD ["rasa", "run", "--enable-api", "--cors", "*", "--port", "5005", "--debug"]
