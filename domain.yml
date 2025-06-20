@@ -1,0 +1,31 @@
+version: "3.1"
+
+intents:
+  - greet
+  - ask_library_hours
+  - ask_contact_librarian
+  - ask_book_availability
+
+entities:
+  - book_title
+
+actions:
+  - action_check_book_availability
+
+responses:
+  utter_greet:
+    - text: "Hello! I'm your UDUS Library Assistant 🤖. How can I help you today?"
+
+  utter_library_hours:
+    - text: |
+        The UDUS Main Library is open:
+        📅 Monday to Friday  
+        🕗 8:00 AM to 6:00 PM  
+        ❌ Closed on Saturdays and Sundays
+
+  utter_contact_librarian:
+    - text: |
+        You can contact a UDUS librarian at:
+        📧 Email: library@udusok.edu.ng  
+        📞 Phone: +234-123-456-7890  
+        🏢 Or visit the Help Desk in the main library building.

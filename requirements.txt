@@ -1,0 +1,4 @@
+rasa==3.6.10
+rasa-sdk==3.6.1
+pandas
+openpyxl

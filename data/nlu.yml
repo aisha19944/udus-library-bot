@@ -1,0 +1,45 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hello
+    - hi
+    - hey
+    - good morning
+    - good evening
+    - hi there
+    - hey assistant
+    - good day
+    - hy
+- intent: ask_library_hours
+  examples: |
+    - what are the library hours?
+    - when is the library open?
+    - what time does the library open?
+    - what time does the library close?
+    - tell me the opening hours of the library
+    - when can I visit the library?
+    - I want to know the library time
+    - library opening and closing time please
+    - does the library open on weekends?
+- intent: ask_contact_librarian
+  examples: |
+    - how can I contact a librarian?
+    - I want to speak with a librarian
+    - is there someone I can talk to?
+    - where can I find a librarian?
+    - how do I reach the library help desk?
+    - can I email the librarian?
+    - who can help me at the library?
+- intent: ask_book_availability
+  examples: |
+    - is [Introduction to Nigerian Law](book_title) available?
+    - do you have the book titled [Artificial Intelligence](book_title)?
+    - can I borrow [The Great Gatsby](book_title)?
+    - is [Database Systems](book_title) in the library?
+    - do you have [Physics for Scientists and Engineers](book_title)?
+    - is the book [Digital Logic Design](book_title) available?
+    - does the library have [Educational Psychology](book_title)?
+    - do you have [Microeconomics](book_title)?
+    - do you have a book on machine learning(book_title)?
