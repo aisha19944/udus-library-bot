@@ -1,19 +1,20 @@
 FROM python:3.9
 
+# Set working directory
 WORKDIR /app
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y build-essential
 
-# Install Rasa
+# Upgrade pip and install Rasa and dependencies
 RUN pip install --upgrade pip
 RUN pip install rasa==3.6.10 rasa-sdk==3.6.1 pandas openpyxl
 
-# Copy your project files
+# Copy all files into the container
 COPY . .
 
-# Expose port
+# ✅ This line tells Render which port your app will run on
 EXPOSE 5005
 
-# Run the Rasa server
-CMD ["rasa", "run", "--enable-api", "--cors", "*", "--port", "5005"]
+# ✅ This is the main command to run your Rasa bot server
+CMD ["rasa", "run", "--enable-api", "--port", "5005", "--cors", "*"]
