@@ -1,18 +1,20 @@
 FROM python:3.9
 
-# Set working directory inside container
+# Set working directory
 WORKDIR /app
 
-# Install Python dependencies
+# Copy only requirements first to cache dependencies
 COPY requirements.txt ./
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
 
-# Copy project files into the container
+# Install Rasa and other requirements
+RUN pip install --upgrade pip
+RUN pip install rasa==3.6.10
+
+# Copy everything into the container
 COPY . .
 
 # Expose Rasa server port
 EXPOSE 5005
 
-# Start Rasa server with API and CORS enabled
+# Default command
 CMD ["rasa", "run", "--enable-api", "--port", "5005", "--cors", "*"]
