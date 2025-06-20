@@ -1,25 +1,17 @@
-# Use the official Python base image
 FROM python:3.10-slim
 
-# Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Set work directory
 WORKDIR /app
 
-# Install system dependencies
 RUN apt-get update && apt-get install -y build-essential
 
-# Copy files to the container
 COPY . /app/
 
-# Install Rasa and other dependencies
 RUN pip install --upgrade pip
 RUN pip install rasa==3.6.10
 
-# Expose the port Rasa will run on
 EXPOSE 5005
 
-# Run the Rasa server
 CMD ["rasa", "run", "--enable-api", "--cors", "*", "--port", "5005"]
