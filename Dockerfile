@@ -1,18 +1,24 @@
-FROM python:3.9
+FROM python:3.10-slim
 
-# Set working directory inside container
+# Avoids writing .pyc files
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Set work directory
 WORKDIR /app
 
-# Install Python dependencies
-COPY requirements.txt ./
+# Install dependencies
+RUN apt-get update && apt-get install -y build-essential
+
+# Copy all project files
+COPY . /app/
+
+# Upgrade pip and install Rasa
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install rasa==3.6.10
 
-# Copy project files into the container
-COPY . .
-
-# Expose Rasa server port
+# Expose Rasa port
 EXPOSE 5005
 
-# Start Rasa server with API and CORS enabled
-CMD ["rasa", "run", "--enable-api", "--port", "5005", "--cors", "*"]
+# Start Rasa server
+CMD ["rasa", "run", "--enable-api", "--port", "5005", "--cors", "*", "--debug"]
