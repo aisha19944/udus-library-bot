@@ -1,29 +1,24 @@
-# Use official Python image compatible with Rasa
 FROM python:3.9-slim
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# Avoid interactive prompts
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Set working directory
 WORKDIR /app
 
 # Install basic dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    git \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y gcc build-essential && \
+    pip install --upgrade pip
 
-# Copy project files into the container
+# Copy project files into container
 COPY . /app
 
-# Install Rasa and project requirements
-RUN pip install --upgrade pip
+# Install Rasa and project dependencies
 RUN pip install rasa==3.6.10
 
 # Expose Rasa port
 EXPOSE 5005
 
-# Run Rasa server with API and CORS enabled
+# Start Rasa server
 CMD ["rasa", "run", "--enable-api", "--port", "5005", "--cors", "*", "--debug"]
