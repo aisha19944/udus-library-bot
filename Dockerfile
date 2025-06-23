@@ -1,24 +1,18 @@
+# Use Python 3.9
 FROM python:3.9-slim
-
-# Avoid interactive prompts
-ENV DEBIAN_FRONTEND=noninteractive
 
 # Set working directory
 WORKDIR /app
 
-# Install basic dependencies
-RUN apt-get update && \
-    apt-get install -y gcc build-essential && \
-    pip install --upgrade pip
-
-# Copy project files into container
+# Copy all project files
 COPY . /app
 
-# Install Rasa and project dependencies
-RUN pip install rasa==3.6.10
+# Install dependencies
+RUN pip install --upgrade pip
+RUN pip install rasa
 
-# Expose Rasa port
+# Expose port 5005
 EXPOSE 5005
 
-# Start Rasa server
-CMD ["rasa", "run", "--enable-api", "--port", "5005", "--cors", "*", "--debug"]
+# Run Rasa
+CMD ["rasa", "run", "--enable-api", "--cors", "*", "--port", "5005"]
